@@ -8,15 +8,6 @@ yt_trans_file=transcript.pt.srt
 yt_trans_file_format=transcript.txt
 yt_trans_lang=pt
 
-# Check file exist
-if [[ -f "$yt_trans_file" ]]; then
-  read -rp 'File exist overwrie [y/N]: ' opc
-
-  if [[ $opc =~ [Yy] ]]; then
-    yt_trans_file_overwrite=true
-  fi
-fi
-
 # Check url
 if [[ $1 ]]; then
   yt_url="$1"
@@ -32,17 +23,15 @@ if ! type yt-dlp  >/dev/null; then
 fi
 
 # Get transcript
-if [[ $yt_trans_file_overwrite ]]; then
-  yt-dlp \
-    --skip-download \
-    --sub-format srt \
-    --sub-lang $yt_trans_lang \
-    --write-subs \
-    --write-auto-subs \
-    --quiet \
-    --output "transcript" \
-    "$yt_url"  
-fi
+yt-dlp \
+  --skip-download \
+  --sub-format srt \
+  --sub-lang $yt_trans_lang \
+  --write-subs \
+  --write-auto-subs \
+  --quiet \
+  --output "transcript" \
+  "$yt_url"
 
 # Get format transcript from
 yt_trans_txt=$(awk -f format.awk "$yt_trans_file")
@@ -62,7 +51,7 @@ case "$opc" in
   o) echo "$yt_trans_txt" > "$yt_trans_file_format" && \
      $EDITOR $yt_trans_file_format
      ;;
-  g) 
+  g)
     if type yad  >/dev/null; then
       ./gui "$yt_trans_file"
     else
