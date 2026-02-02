@@ -10,7 +10,7 @@ yt_trans_txt=$(awk -f format.awk "$yt_trans_file")
 
 # Clipboard line on click time cell
 clipboard() {
-  local line=$(sed -E "s/^'([[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2})' '(.+)'$/\1 - \2/g" <<< "$1")
+  local line=$(sed -E "s/^'([[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2})' '(.+)'$/\1 = \2/g" <<< "$1")
   printf "%s" "$line" | xclip -selection clipboard
 }
 export -f clipboard

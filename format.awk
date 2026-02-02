@@ -28,9 +28,9 @@ NF {
   # }
 
   # Imprimi linha curta
-  print start_time " - " $0
+  print start_time " = " $0
 }
 
-END { print "" }
+END { print "\n# vim:ft=dosini" }
 
 # ft=awk
