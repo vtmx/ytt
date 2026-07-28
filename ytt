@@ -58,7 +58,7 @@ if [[ ! -f "$srt_file" ]] || [[ $srt_file_overwrite == 'true' ]]; then
     "$url"
 fi
 
-# Convert to txt format in (dosini)
+# Convert srt in dosini format
 awk -f "$cwd/format.awk" "$srt_file" > "$txt_file"
 
 # Read a option
