@@ -30,7 +30,7 @@ if [[ -z "$title" ]]; then
   exit 1
 fi
 
-str_file="$title.$lang.srt"
+str_file="$title_$lang.srt"
 txt_file="$title.txt"
 
 # Check file exist
