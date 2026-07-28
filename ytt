@@ -58,12 +58,10 @@ if [[ ! -f "$srt_file" ]] || [[ $srt_file_overwrite == 'true' ]]; then
     "$url"
 fi
 
-# Get format transcript from
-srt_txt=$(awk -f "$cwd/format.awk" "$srt_file")
+# Convert to txt format in (dosini)
+awk -f "$cwd/format.awk" "$srt_file" > "$txt_file"
 
-# Write txt file
-echo "$srt_txt" > "$txt_file"
-
+# Read a option
 read -rp '
 p) Print
 o) Open
