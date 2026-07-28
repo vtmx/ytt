@@ -65,7 +65,7 @@ str_txt=$(awk -f "$cwd/format.awk" "$str_file")
 echo "$str_txt" > "$txt_file"
 
 read -rp '
-Escolha uma opção:
+Options:
 p) Print
 o) Open
 g) Gui
