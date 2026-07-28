@@ -11,7 +11,7 @@ Script em bash para download de transcrições do YouTube.
 ```bash
 ./ytt https://www.youtube.com/watch?v=<ID>
 
-Escolha uma opção:
+Options:
 p) Print
 g) Gui
 s) Save
