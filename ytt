@@ -30,11 +30,11 @@ if [[ -z "$title" ]]; then
   exit 1
 fi
 
-str_file="$title.$lang.srt"
+srt_file="$title.$lang.srt"
 txt_file="$title.txt"
 
 # Check file exist
-if [[ -f "$str_file" ]]; then
+if [[ -f "$srt_file" ]]; then
   read -rp 'File exist overwrie [y/N]: ' opc
   if [[ $opc =~ [Yy] ]]; then
     str_file_overwrite=true
@@ -42,7 +42,7 @@ if [[ -f "$str_file" ]]; then
 fi
 
 # Get transcript
-if [[ ! -f "$str_file" ]] || [[ $str_file_overwrite == 'true' ]]; then
+if [[ ! -f "$srt_file" ]] || [[ $srt_file_overwrite == 'true' ]]; then
   yt-dlp \
     --skip-download \
     --sub-format srt \
@@ -59,10 +59,10 @@ if [[ ! -f "$str_file" ]] || [[ $str_file_overwrite == 'true' ]]; then
 fi
 
 # Get format transcript from
-str_txt=$(awk -f "$cwd/format.awk" "$str_file")
+srt_txt=$(awk -f "$cwd/format.awk" "$srt_file")
 
-# Transform txt format
-echo "$str_txt" > "$txt_file"
+# Write txt file
+echo "$srt_txt" > "$txt_file"
 
 read -rp '
 p) Print
@@ -73,8 +73,8 @@ q) Quit
 Option: ' opc
 
 case "$opc" in
-  p) echo "$str_txt" ;;
+  p) echo "$srt_txt" ;;
   o) $EDITOR "$txt_file" ;;
-  g) $cwd/gui "$str_file" ;;
+  g) $cwd/gui "$srt_file" ;;
   q) exit 0 ;;
 esac
