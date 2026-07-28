@@ -1,7 +1,10 @@
 # BEGIN { system("clear") }
 
-# Ignora número da legenda e linhas com [Música]
-/^[0-9]+$|\[Música\]/ { next }
+# Ignora linhas com [Música]
+/^[0-9]+$|\[[Mm]úsica\]/ { next }
+
+# Ignora linhas com [Risadas]
+/^[0-9]+$|\[[Rr]isadas\]/ { next }
 
 # Separa tempo inicial
 /-->/ {
@@ -12,25 +15,17 @@
 }
 
 NF {
+  # Remove a ocorrência de [risadas]
+  gsub(/ \[[Rr]isadas\]/, "")
+
   # Remove a ocorrência de >>
   gsub(/>> /, "")
-
-  # Imprimi linha longa
-  # if (match($0, /^[A-Z]/)) {
-  #   if (firstline_exist == 0) {
-  #     printf "%s - %s ", start_time, $0
-  #     firstline_exist = 1
-  #   } else {
-  #     printf "\n%s - %s ", start_time, $0
-  #   }
-  # } else {
-  #   printf "%s", $0
-  # }
 
   # Imprimi linha curta
   print start_time " = " $0
 }
 
-END { print "\n# vim:ft=dosini" }
+# Separar a string evita o erro
+END { print "\n# vim" ":" "ft=dosini" }
 
 # ft=awk

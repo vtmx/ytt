@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-if [[ "$1" ]]; then
-  yt_trans_file="$1"
-else
-  yt_trans_file=transcript.pt.srt
+if ! type yad  >/dev/null; then
+  echo 'error: need yad to gui' >&2
+  exit 1
 fi
 
-yt_trans_txt=$(awk -f format.awk "$yt_trans_file")
+if [[ -z "$1" ]]; then
+  echo 'error: no file'
+  exit 1
+fi
+
+str_file="$1"
+str_txt=$(awk -f format.awk "$str_file")
 
 # Clipboard line on click time cell
 clipboard() {
@@ -15,7 +20,7 @@ clipboard() {
 }
 export -f clipboard
 
-# # Show yad
+# Show yad
 yad --list \
   --title=Transcrição \
   --editable --editable-cols=2 \
@@ -23,4 +28,4 @@ yad --list \
   --regex-search \
   --dclick-action='bash -c "clipboard \"%s\""' \
   --column=Tempo --column=Frase \
-  < <(awk -F ' - ' '{ print $1 "\n" $2 }' <<< $yt_trans_txt)
+  < <(awk -F ' = ' '{ print $1 "\n" $2 }' <<< $str_txt)
