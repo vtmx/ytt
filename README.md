@@ -11,11 +11,10 @@ Script em bash para download de transcrições do YouTube.
 ```bash
 ./ytt https://www.youtube.com/watch?v=<ID>
 
-Options:
 p) Print
 g) Gui
 s) Save
 q) Quit
 
-Opção:
+Option:
 ```

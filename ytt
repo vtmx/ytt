@@ -65,13 +65,12 @@ str_txt=$(awk -f "$cwd/format.awk" "$str_file")
 echo "$str_txt" > "$txt_file"
 
 read -rp '
-Options:
 p) Print
 o) Open
 g) Gui
 q) Quit
 
-Opção: ' opc
+Option: ' opc
 
 case "$opc" in
   p) echo "$str_txt" ;;
