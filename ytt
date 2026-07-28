@@ -22,7 +22,11 @@ else
 fi
 
 # Get video title
-title=$(yt-dlp --restrict-filenames --print filename -o "%(title).20s" "$url" 2>/dev/null)
+title=$(yt-dlp \
+  --restrict-filenames \
+  --print filename \
+  -o "%(title).20s" "$url" 2>/dev/null
+)
 
 # Check title
 if [[ -z "$title" ]]; then
